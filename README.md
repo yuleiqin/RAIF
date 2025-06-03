@@ -1,12 +1,12 @@
 <h1 align="center">Incentivizing Reasoning for Advanced Instruction-Following of Large Language Models</h1>
 <p align="center"><i>A Recipe for Building LLM Reasoners to Solve Complex Instructions</i></p>
 <div align="center">
-  <a href="https://github.com/yuleiqin/IRAIF/stargazers"><img src="https://img.shields.io/github/stars/yuleiqin/IRAIF" alt="Stars Badge"/></a>
-<a href="https://github.com/yuleiqin/IRAIF/network/members"><img src="https://img.shields.io/github/forks/yuleiqin/IRAIF" alt="Forks Badge"/></a>
-<a href="https://github.com/yuleiqin/IRAIF/pulls"><img src="https://img.shields.io/github/issues-pr/yuleiqin/IRAIF" alt="Pull Requests Badge"/></a>
-<a href="https://github.com/yuleiqin/IRAIF/issues"><img src="https://img.shields.io/github/issues/yuleiqin/IRAIF" alt="Issues Badge"/></a>
-<a href="https://github.com/yuleiqin/IRAIF/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/yuleiqin/IRAIF?color=2b9348"></a>
-<a href="https://github.com/yuleiqin/IRAIF/blob/master/LICENSE"><img src="https://img.shields.io/github/license/yuleiqin/IRAIF?color=2b9348" alt="License Badge"/></a>
+  <a href="https://github.com/yuleiqin/RAIF/stargazers"><img src="https://img.shields.io/github/stars/yuleiqin/RAIF" alt="Stars Badge"/></a>
+<a href="https://github.com/yuleiqin/RAIF/network/members"><img src="https://img.shields.io/github/forks/yuleiqin/RAIF" alt="Forks Badge"/></a>
+<a href="https://github.com/yuleiqin/RAIF/pulls"><img src="https://img.shields.io/github/issues-pr/yuleiqin/RAIF" alt="Pull Requests Badge"/></a>
+<a href="https://github.com/yuleiqin/RAIF/issues"><img src="https://img.shields.io/github/issues/yuleiqin/RAIF" alt="Issues Badge"/></a>
+<a href="https://github.com/yuleiqin/RAIF/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/yuleiqin/RAIF?color=2b9348"></a>
+<a href="https://github.com/yuleiqin/RAIF/blob/master/LICENSE"><img src="https://img.shields.io/github/license/yuleiqin/RAIF?color=2b9348" alt="License Badge"/></a>
 </div>
 
 This is a repository of the official implementation of the paper "Incentivizing Reasoning for Advanced Instruction-Following of Large Language Models".

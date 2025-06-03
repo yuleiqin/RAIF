@@ -1,0 +1,125 @@
+name: judgment config file for feedback-benchmark
+
+bench_name: feedback-benchmark
+test_file_name: fb_bench_dataset.json
+
+judge_model: gpt-4o-2024-08-06
+
+temperature: 0
+max_tokens: 4096
+
+number_of_judgment_attempts: 10
+
+system_prompt: null
+
+prompt_language: zh
+
+prompt_template_zh: |
+  # 任务
+
+  你是一位优秀的回答评估师，你的任务是根据给定的第二轮对话的参考回答和评判细则，对一段用户与模型之间的两轮对话中的模型的第二轮回答进行评估，并以JSON格式输出
+
+  # 用户和模型之间的两轮对话
+
+  <role>user</role>
+  <content>
+  {user_query}
+  </content>
+
+  <role>assistant</role>
+  <content>
+  {origin_first_response}
+  </content>
+
+  <role>user</role>
+  <content>
+  {feedback}
+  </content>
+
+  <role>assistant</role>
+  <content>
+  {second_response}
+  </content>
+
+  # 模型第二轮回复的参考回答
+
+  <content>
+  {reference_second_response}
+  </content>
+
+  # 评判细则
+
+  <评判细则>
+  {checklist}
+  </评判细则>
+
+  # 输出的评估信息
+
+  请你认真阅读上述两轮对话，严格以评判细则为评判标准，针对评判细则当中的逐条要求，检查模型的第二轮回答是否满足各条要求。请注意，参考回答仅供参考，实际评判应关注模型的第二轮回答是否充分符合评判细则中的要求，而不是其与参考答案的相似性。
+
+  请以json格式回答，包含三个字段：评判理由、评判结果（取值限制为"是"或"否"，如果只是部分正确，则仍然是“否”）和weight（其值是预设的，无需更改）。
+
+  输出格式如下：
+  ```json
+  {checklist_judgement}
+  ```
+
+
+
+
+prompt_template_en: |
+  # Task
+  
+  You are an excellent answer evaluator, your task is to assess the model's second round response in a two-round dialogue between a user and the model, based on the given reference answer for the second round of dialogue and a checklist, and to output the evaluation in JSON format.
+
+  # Two-round dialogue between user and model, with the model's second round response to be evaluated
+
+  <role>user query</role>
+  <content>
+  {user_query}
+  </content>
+
+  <role>model's first-round response</role>
+  <content>
+  {origin_first_response}
+  </content>
+
+  <role>user feedback</role>
+  <content>
+  {feedback}
+  </content>
+
+  <role>model's second-round response</role>
+  <content>
+  {second_response}
+  </content>
+
+  # Reference answer for the model's second round response, only for reference
+
+  <content>
+  {reference_second_response}
+  </content>
+
+  # Evaluation Criteria
+
+  <Evaluation Criteria>
+  {checklist}
+  </Evaluation Criteria>
+
+  # Output Evaluation Information
+
+  Please carefully read the above two rounds of dialogue, strictly use the evaluation criteria as the standard for judgment, and check whether the model's second round answer meets each requirement according to the criteria listed in the evaluation criteria.
+
+  Note: The reference answer is intended only for guidance. The actual evaluation should focus on whether the model's second-round response adequately addresses the checklist criteria, not on its similarity to the reference.
+
+  Please answer in json format, including three fields: judgement reason, judgement result (value restricted to "yes" or "no", if only partially correct, it is still "no") and weight (its value is preset, no need to change). When presenting the judgement reason, please think step by step and ensure to provide a detailed analysis process.
+  
+  Output format as follows:
+  ```json
+  {checklist_judgement}
+  ```
+
+# Add your model below for evaluation
+model_list:
+  - Qwen2-7B-Instruct
+

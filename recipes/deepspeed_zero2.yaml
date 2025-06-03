@@ -1,0 +1,28 @@
+compute_environment: LOCAL_MACHINE
+deepspeed_config:
+  deepspeed_multinode_launcher: standard
+  gradient_accumulation_steps: auto
+  gradient_clipping: 1.0
+  zero2_init_flag: true
+  zero_stage: 2
+  offload_optimizer:
+    device: cpu
+    pin_memory: true
+  offload_param:
+    offload_params_device: cpu
+    offload_params_pin_memory: true
+    pin_memory_meta: true
+  bf16:
+    enabled: true
+    loss_scale: 0
+    loss_scale_window: 1000
+    hysteresis: 2
+    min_loss_scale: 1
+distributed_type: DEEPSPEED
+fsdp_config: {}
+machine_rank: 0
+main_training_function: main
+mixed_precision: bf16
+num_machines: 1
+num_processes: 8
+use_cpu: false

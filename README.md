@@ -18,8 +18,6 @@ To this end, we propose a systematic method to boost LLMs in dealing with comple
 
 # News📰
 * **`May. 2025`:** 🔥🔥🔥**Our preprint paper is released [[arxiv version](https://arxiv.org/pdf/2506.01413)].**
-* **`May. 2025`:** 🔥🔥🔥**Codes and data are released. Model checkpoints are available at [🤗HuggingFace](https://huggingface.co/collections/yolay/raif-682b16e5c0c2fa9b73811369).**
-
 
 # Overview✈️
 

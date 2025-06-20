@@ -15,42 +15,7 @@ from importlib import reload
 import logging
 import concurrent.futures
 
-# parser = argparse.ArgumentParser()
-# parser.add_argument('--input_path', type=str, default="")
-# parser.add_argument('--input_file_type', type=str, default="jsonl")
-# parser.add_argument('--save_path', type=str, default="")
-# parser.add_argument('--model_id', type=str, default="")
-# parser.add_argument('--question_type', type=str, default="conversations") #! TODO
-# parser.add_argument('--save_freq', type=int, default=10)
-# parser.add_argument('--batch_size', type=int, default=8)
-# # parser.add_argument('--custom_prompt', action="store_true", default=False)
-# parser.add_argument('--qkey', type=str, default='q')
-# parser.add_argument('--system_prompt', type=str, default='')
-# # parser.add_argument('--answer_starts_with', type=str, default='')
-# parser.add_argument('--temperature', type=float, default=0.)
-# parser.add_argument('--max_tokens', type=int, default=0)
-# parser.add_argument('--top_k', type=int, default=0)
-# parser.add_argument('--enable_token_count', type=str, default='false') #! TODO
-# parser.add_argument('--resume', action="store_true", default=True)
-# args = parser.parse_args()
-# global model_url
-# if args.question_type == 'conversations':
-#     args.qkey = "conversations"
 
-
-# save_path = 'output_data/results.json'
-
-# def get_model_response(data):
-#     global model_url
-#     # url = "http://9.91.12.52:8001/forward"
-#     # try:
-#     response = requests.post(model_url, json=data)
-#     # except:
-#     # print('='*50)
-#     # print(response.content)
-#     # print(response.text)
-#     #     return {"status": False, "response": '调用失败, IP:{}'.format(url)}
-#     return {"status": True, "response": json.loads(response.text)['response']}
 
 def get_model_response(data, model_url):
     response = requests.post(model_url, json=data, timeout=300)
@@ -65,20 +30,6 @@ def special_rules(conversation_i):
         if conversation_i[0]['role'] == 'system' and conversation_i[0]['content'] == 'You are a helpful assistant':
             conversation_i.pop(0)
         return conversation_i
-
-# def call_model_service(index, data):
-#     if args.question_type == 'conversations':
-#         # post_info = {"prompt": special_rules(data[args.qkey]), "messages_format": True, 'system': args.system_prompt}
-#         post_info = {"prompt": data[args.qkey], "messages_format": True, 'system': args.system_prompt}
-#     else:
-#         post_info = {"prompt": data[args.qkey], 'system': args.system_prompt}
-
-#     if args.temperature: post_info['temperature'] = args.temperature
-#     if args.max_tokens: post_info['max_tokens'] = args.max_tokens
-#     if args.top_k: post_info['top_k'] = args.top_k
-#     result = get_model_response(post_info)
-#     data[args.model_id] = result['response']
-#     return index, data
 
 
 def call_model_service_infer(messages, model_id):

@@ -27,6 +27,7 @@ def parse_digits(num):
                 pass
     return None
 
+
 def is_digit(num):
     # paired with parse_digits
     return parse_digits(num) is not None
@@ -43,6 +44,7 @@ def str_to_pmatrix(input_str):
         pmatrix_list.append(pmatrix)
 
     return ', '.join(pmatrix_list)
+
 
 def extract_inside_str(input_str):
 
@@ -80,6 +82,7 @@ def extract_inside_str(input_str):
 
     return input_str
 
+
 def math_equal(prediction: Union[bool, float, str],
                 reference: Union[float, str],
                 include_percentage: bool = True,
@@ -96,7 +99,8 @@ def math_equal(prediction: Union[bool, float, str],
         return True
     prediction = extract_inside_str(prediction)
     reference = extract_inside_str(reference)
-    try: # 1. numerical equal
+    # 1. numerical equal
+    try:
         if is_digit(prediction) and is_digit(reference):
             prediction = parse_digits(prediction)
             reference = parse_digits(reference)
@@ -127,11 +131,11 @@ def math_equal(prediction: Union[bool, float, str],
     reference = str(reference).strip()
     prediction = str(prediction).strip()
 
-    ## pmatrix (amps)
+    # pmatrix (amps)
     if "pmatrix" in prediction and not 'pmatrix' in reference:
         reference = str_to_pmatrix(reference)
 
-    ## deal with [], (), {}
+    # deal with [], (), {}
     pred_str, ref_str = prediction, reference
     if (prediction.startswith("[") and prediction.endswith("]") and not reference.startswith("(")) or \
         (prediction.startswith("(") and prediction.endswith(")") and not reference.startswith("[")):
@@ -143,7 +147,7 @@ def math_equal(prediction: Union[bool, float, str],
     if pred_str.lower() == ref_str.lower():
         return True
 
-    ## [a, b] vs. [c, d], return a==c and b==d
+    # [a, b] vs. [c, d], return a==c and b==d
     if regex.match(r'(\(|\[).+(\)|\])', prediction) is not None and regex.match(r'(\(|\[).+(\)|\])', reference) is not None:
         pred_parts = prediction[1:-1].split(",")
         ref_parts = reference[1:-1].split(",")

@@ -8,6 +8,7 @@ from word2number import w2n
 from openrlhf.trainer.ppo_utils.qwen_math_eval_toolkit.utils import *
 
 
+
 def _fix_fracs(string):
     substrs = string.split("\\frac")
     new_str = substrs[0]
@@ -495,10 +496,12 @@ def extract_theoremqa_answer(pred: str, answer_flag: bool = True):
 
     return pred
 
-#关键提取函数
+
+# 关键提取函数
 def extract_answer(pred_str, data_name, use_last_number=True):
     pred_str = pred_str.replace("\u043a\u0438", "")
-    if data_name in ["mmlu_stem", "sat_math", "aqua", "gaokao2023"]: #skip for math benchmark
+    # skip for math benchmark
+    if data_name in ["mmlu_stem", "sat_math", "aqua", "gaokao2023"]:
         # TODO check multiple choice
         return choice_answer_clean(pred_str)
 
@@ -549,7 +552,8 @@ def extract_answer(pred_str, data_name, use_last_number=True):
     if (
         data_name in ["sat_math", "aqua"]
         or "mmlu" in data_name
-    ): #false for math benchmark
+    ):
+        # false for math benchmark
         tmp = re.findall(r"\b(A|B|C|D|E)\b", pred.upper())
         if tmp:
             pred = tmp[-1]
@@ -583,7 +587,8 @@ def parse_ground_truth(example: Dict[str, Any], data_name):
         return example["gt_cot"], gt_ans
 
     # parse ground truth
-    if data_name in ["math", "minerva_math", "math500"]:  #关键代码
+    # 关键代码
+    if data_name in ["math", "minerva_math", "math500"]:
         gt_cot = example["solution"]
         gt_ans = extract_answer(gt_cot, data_name)
     elif data_name == "gsm8k":

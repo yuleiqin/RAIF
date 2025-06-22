@@ -370,7 +370,7 @@ class ActorPPOTrainer(PPOTrainer):
         # call remote critic
         if not self.disable_ds_ckpt:
             if self.critic_train_remote:
-                ## remote critic 模型必须调用这个函数才能正常保存
+                # remote critic 模型必须调用这个函数才能正常保存
                 ref = self.critic.save_checkpoint.remote(tag)
             self.strategy.save_ckpt(
                 self.actor.model,
@@ -392,6 +392,7 @@ class ActorPPOTrainer(PPOTrainer):
             if self.critic_train_remote:
                 ray.get(ref)
         torch.distributed.barrier()
+
 
 @ray.remote(num_gpus=1)
 class ActorModelRayActor(BasePPORole):
@@ -527,7 +528,7 @@ class ActorModelRayActor(BasePPORole):
                 self.tokenizer,
                 pretrain_max_len,
                 strategy,
-                pretrain_mode=False, # pretrain_mode=True
+                pretrain_mode=False,   # pretrain_mode=True
             )
             # args.micro_train_batch_size,
             # grpo_sft_data_ratio = math.log(args.micro_train_batch_size*len(pretrain_dataset)/len(self.prompts_dataset), 2)
@@ -612,7 +613,7 @@ class ActorModelRayActor(BasePPORole):
 
         # broadcast checkpoint
         ckpt_path = os.path.join(args.ckpt_path, "_actor")
-        if args.load_checkpoint and os.path.exists(ckpt_path) and not vllm_engines is None:
+        if args.load_checkpoint and os.path.exists(ckpt_path) and vllm_engines is not None:
             torch.distributed.barrier()
             trainer._broadcast_to_vllm()
 
@@ -859,7 +860,7 @@ class ActorPPOTrainerBOX(PPOTrainerPRM800K_BOX):
         # call remote critic
         if not self.disable_ds_ckpt:
             if self.critic_train_remote:
-                ## remote critic 模型必须调用这个函数才能正常保存
+                # remote critic 模型必须调用这个函数才能正常保存
                 ref = self.critic.save_checkpoint.remote(tag)
             self.strategy.save_ckpt(
                 self.actor.model,
@@ -1020,7 +1021,7 @@ class ActorModelRayActorBOX(BasePPORole):
                 self.tokenizer,
                 pretrain_max_len,
                 strategy,
-                pretrain_mode=False, # pretrain_mode=True,
+                pretrain_mode=False,   # pretrain_mode=True,
             )
             # args.micro_train_batch_size,
             # grpo_sft_data_ratio = math.log(args.micro_train_batch_size*len(pretrain_dataset)/len(self.prompts_dataset), 2)
@@ -1103,7 +1104,7 @@ class ActorModelRayActorBOX(BasePPORole):
 
         # broadcast checkpoint
         ckpt_path = os.path.join(args.ckpt_path, "_actor")
-        if args.load_checkpoint and os.path.exists(ckpt_path) and not vllm_engines is None:
+        if args.load_checkpoint and os.path.exists(ckpt_path) and vllm_engines is not None:
             torch.distributed.barrier()
             trainer._broadcast_to_vllm()
 
@@ -1350,7 +1351,7 @@ class ActorPPOTrainerPRMBOX(PPOTrainerPRM800K_BOX):
         # call remote critic
         if not self.disable_ds_ckpt:
             if self.critic_train_remote:
-                ## remote critic 模型必须调用这个函数才能正常保存
+                # remote critic 模型必须调用这个函数才能正常保存
                 ref = self.critic.save_checkpoint.remote(tag)
             self.strategy.save_ckpt(
                 self.actor.model,
@@ -1511,7 +1512,7 @@ class ActorModelRayActorPRMBOX(BasePPORole):
                 self.tokenizer,
                 pretrain_max_len,
                 strategy,
-                pretrain_mode=False, # pretrain_mode=True,
+                pretrain_mode=False,   # pretrain_mode=True,
             )
             # grpo_sft_data_ratio = math.log(args.micro_train_batch_size*len(pretrain_dataset)/len(self.prompts_dataset), 2)
             # pretrain_data_micro_batch_size = max(1, min(args.micro_train_batch_size, 2**(math.ceil(grpo_sft_data_ratio))))
@@ -1595,7 +1596,7 @@ class ActorModelRayActorPRMBOX(BasePPORole):
 
         # broadcast checkpoint
         ckpt_path = os.path.join(args.ckpt_path, "_actor")
-        if args.load_checkpoint and os.path.exists(ckpt_path) and not vllm_engines is None:
+        if args.load_checkpoint and os.path.exists(ckpt_path) and vllm_engines is not None:
             torch.distributed.barrier()
             trainer._broadcast_to_vllm()
 
@@ -1973,7 +1974,7 @@ class ActorModelRayActorORMBOX(BasePPORole):
                 self.tokenizer,
                 pretrain_max_len,
                 strategy,
-                pretrain_mode=False, # pretrain_mode
+                pretrain_mode=False,   # pretrain_mode
             )
             # grpo_sft_data_ratio = math.log(args.micro_train_batch_size*len(pretrain_dataset)/len(self.prompts_dataset), 2)
             # pretrain_data_micro_batch_size = max(1, min(args.micro_train_batch_size, 2**(math.ceil(grpo_sft_data_ratio))))
@@ -2057,7 +2058,7 @@ class ActorModelRayActorORMBOX(BasePPORole):
 
         # broadcast checkpoint
         ckpt_path = os.path.join(args.ckpt_path, "_actor")
-        if args.load_checkpoint and os.path.exists(ckpt_path) and not vllm_engines is None:
+        if args.load_checkpoint and os.path.exists(ckpt_path) and vllm_engines is not None:
             torch.distributed.barrier()
             trainer._broadcast_to_vllm()
 

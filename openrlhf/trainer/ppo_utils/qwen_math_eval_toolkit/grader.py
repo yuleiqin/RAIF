@@ -123,11 +123,11 @@ def math_equal(
     reference = str(reference).strip()
     prediction = str(prediction).strip()
 
-    ## pmatrix (amps)
+    # pmatrix (amps)
     if "pmatrix" in prediction and not "pmatrix" in reference:
         reference = str_to_pmatrix(reference)
 
-    ## deal with [], (), {}
+    # deal with [], (), {}
     pred_str, ref_str = prediction, reference
     if (
         prediction.startswith("[")
@@ -146,7 +146,7 @@ def math_equal(
     if pred_str.lower() == ref_str.lower():
         return True
 
-    ## [a, b] vs. [c, d], return a==c and b==d
+    # [a, b] vs. [c, d], return a==c and b==d
     if (
         regex.match(r"(\(|\[).+(\)|\])", prediction) is not None
         and regex.match(r"(\(|\[).+(\)|\])", reference) is not None
@@ -347,6 +347,7 @@ def call_with_timeout(func, *args, timeout=1, **kwargs):
         return False
 
     return output_queue.get()
+
 
 def _test_math_equal():
     # print(math_equal("0.0833333333333333", "\\frac{1}{12}"))

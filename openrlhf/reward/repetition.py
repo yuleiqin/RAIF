@@ -4,6 +4,7 @@ import torch
 from openrlhf.reward.common import DenseReward
 from transformers import AutoTokenizer
 
+
 def build_model():
     model_name_or_path = "/cfs/yuleiqin/models/Qwen2.5-7B-Instruct_Qwen"
     tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, use_fast=False)

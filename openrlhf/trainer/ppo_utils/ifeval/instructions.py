@@ -185,14 +185,13 @@ class NumberOfSentences(Instruction):
     """
     # The number of sentences as a threshold for comparison.
     self._num_sentences_threshold = num_sentences
-    if (self._num_sentences_threshold is None or
-        self._num_sentences_threshold < 0):
+    if (self._num_sentences_threshold is None or self._num_sentences_threshold < 0):
       self._num_sentences_threshold = random.randint(1, _MAX_NUM_SENTENCES)
     RELATION_MAPPING = {
-      'less than':'less than',
-      'at least':'at least',
-      '至少':'at least',
-      '少于':'less than'
+      'less than': 'less than',
+      'at least': 'at least',
+      '至少': 'at least',
+      '少于': 'less than'
     }
     relation = RELATION_MAPPING[relation]
     if relation is None:
@@ -782,10 +781,10 @@ class KeywordFrequencyChecker(Instruction):
       self._frequency = random.randint(1, _KEYWORD_FREQUENCY)
 
     RELATION_MAPPING = {
-      'less than':'less than',
-      'at least':'at least',
-      '至少':'at least',
-      '少于':'less than'
+      'less than': 'less than',
+      'at least': 'at least',
+      '至少': 'at least',
+      '少于': 'less than'
     }
     relation = RELATION_MAPPING[relation]
     if relation is None:
@@ -855,10 +854,10 @@ class NumberOfWords(Instruction):
           _NUM_WORDS_LOWER_LIMIT, _NUM_WORDS_UPPER_LIMIT
       )
     RELATION_MAPPING = {
-      'less than':'less than',
-      'at least':'at least',
-      '至少':'at least',
-      '少于':'less than'
+      'less than': 'less than',
+      'at least': 'at least',
+      '至少': 'at least',
+      '少于': 'less than'
     }
     relation = RELATION_MAPPING[relation]
     if relation is None:
@@ -1593,6 +1592,7 @@ class QuotationChecker(Instruction):
     """Checks if the response is wrapped with double quotation marks."""
     value = value.strip()
     return len(value) > 1 and value[0] == '"' and value[-1] == '"'
+
 
 class XmlFormat(Instruction):
   """Check the Xml format."""

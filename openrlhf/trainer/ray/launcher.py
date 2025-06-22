@@ -25,6 +25,7 @@ from openrlhf.utils.deepspeed import DeepspeedStrategy
 # for path in sys.path:
 #     print(path)
 
+
 class DistributedTorchRayActor:
     # def __init__(self, world_size, rank, local_rank, master_addr, master_port):
     def __init__(self, world_size, rank, master_addr, master_port):
@@ -161,8 +162,9 @@ class RewardModelRayActor(BasePPORole):
     def empty_cache(self) -> None:
         torch.cuda.empty_cache()
         
-        
-@ray.remote(num_gpus=1)  #max_task_retries=3, max_concurrency=1
+
+# max_task_retries=3, max_concurrency=1
+@ray.remote(num_gpus=1)  
 class RewardModelRayActorPRM(BasePPORole):
     def init_model_from_pretrained(self, strategy: DeepspeedStrategy, pretrain):
         self._setup_distributed(strategy)

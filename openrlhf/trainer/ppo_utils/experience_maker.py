@@ -544,6 +544,8 @@ def preprocess_box_responsev4(sequence, answer):
     return processed_solution, box_match
 
 from openrlhf.trainer.ppo_utils.qwen_math_eval_toolkit.grader import math_equal as qwen_math_equal
+
+
 def qwen_math_equal_with_timeout_ray(prediction, reference, include_percentage=True, is_close=True, timeout_duration=3):
     """
     使用Ray的超时机制对math_equal函数进行控制
@@ -562,7 +564,10 @@ def qwen_math_equal_with_timeout_ray(prediction, reference, include_percentage=T
         ray.logger.info("Math Eq eval timeout.")
         return False
     
+
 from multiprocessing import Process, Queue
+
+
 def qwen_math_equal_subprocess(prediction, reference,  timeout_seconds=10):
     def worker(q, prediction, reference):
         result = qwen_math_equal(prediction=prediction, reference=reference, timeout=False)
@@ -626,7 +631,8 @@ def preprocess_box_response_for_qwen_prompt(sequence, answer, task, tokenizer, t
 
     model_input = sequence[:sequence.find(model_output)]
     model_output = model_output.lstrip()
-    N_gram = 8  ## n-gram  相比于demystify long CoT的初始长度4K->770; 选择40/5.31->8
+    # n-gram  相比于demystify long CoT的初始长度4K->770; 选择40/5.31->8
+    N_gram = 8
     P_repetition = -0.1
 
     # repetition_penalty = get_repetition_penalty(ngram_size=N_gram, max_penalty=P_repetition, generation=model_output)
@@ -656,7 +662,8 @@ def preprocess_box_response_for_qwen_prompt(sequence, answer, task, tokenizer, t
     is_answer_correct = 0.0
     if task == "default":
         # accuracy reward for math problem
-        extract_answer = qwen_extract_answer(model_output, data_name="math") #TODO: check the data_name, hard code here 
+        # TODO: check the data_name, hard code here 
+        extract_answer = qwen_extract_answer(model_output, data_name="math")
         if qwen_math_equal_subprocess(prediction=extract_answer, reference=answer):
             answer_score = 2.0
             is_answer_correct = 1.0
@@ -721,7 +728,7 @@ def preprocess_box_response_for_qwen_prompt(sequence, answer, task, tokenizer, t
 
 def compute_format_reward(content):
     """Reward function that checks if the completion has a specific format."""
-    ### strict matching
+    # strict matching
     # pattern = r"^<think>.*?</think><answer>.*?</answer>$"
     pattern = r"<think>.*?</think><answer>.*?</answer>"
     match = re.match(pattern, content)
@@ -792,15 +799,20 @@ def zero_pad_sequences(sequences, side: str = "left", value=0):
         padded_sequences.append(F.pad(seq, padding, value=value))
     return torch.stack(padded_sequences, dim=0)
 
+
 def to(tensor: Union[torch.Tensor, list[torch.Tensor]], device):
+
     if isinstance(tensor, list):
         return [to(t, device) for t in tensor]
+    
     return tensor.to(device) if isinstance(tensor, torch.Tensor) else tensor
 
 
 def pin_memory(tensor: Union[torch.Tensor, list[torch.Tensor]]):
+
     if isinstance(tensor, list):
         return [pin_memory(t) for t in tensor]
+    
     return tensor.pin_memory() if isinstance(tensor, torch.Tensor) else tensor
 
 
@@ -1587,8 +1599,8 @@ class NaiveExperienceMakerBOX(ABC):
             queries = processed_queries
             reward_sequences, reward_attention_mask = preprocess_prm_reward(queries, self.tokenizer, self.prompt_max_len, **generate_kwargs)
             candidate_tokens = [128003, 128004]
-            logits = self.reward_model(reward_sequences.to(device=action_log_probs.device), attention_mask=reward_attention_mask.to(device=action_log_probs.device), return_output=True).logits[:,:,candidate_tokens]
-            scores = logits.softmax(dim=-1)[:,:,0]
+            logits = self.reward_model(reward_sequences.to(device=action_log_probs.device), attention_mask=reward_attention_mask.to(device=action_log_probs.device), return_output=True).logits[:, :, candidate_tokens]
+            scores = logits.softmax(dim=-1)[:, :, 0]
             step_scores = []
             step_tag = '<|reserved_special_token_0|>'
             step_tag_id = self.tokenizer.encode(f"{step_tag}")[-1]
@@ -2117,8 +2129,8 @@ class NaiveExperienceMakerPRM800K_BOX(ABC):
             
 
             candidate_tokens = [128003, 128004]
-            logits = self.reward_model(reward_sequences.to(device=action_log_probs.device), attention_mask=reward_attention_mask.to(device=action_log_probs.device), return_output=True).logits[:,:,candidate_tokens]
-            scores = logits.softmax(dim=-1)[:,:,0]
+            logits = self.reward_model(reward_sequences.to(device=action_log_probs.device), attention_mask=reward_attention_mask.to(device=action_log_probs.device), return_output=True).logits[:, :, candidate_tokens]
+            scores = logits.softmax(dim=-1)[:, :, 0]
             step_scores = []
             step_tag = '<|reserved_special_token_0|>'
             step_tag_id = self.tokenizer.encode(f"{step_tag}")[-1]
@@ -2197,7 +2209,7 @@ class NaiveExperienceMakerPRM800K_BOX(ABC):
                 # Remove the second last element
                 reward_indexs[i] = torch.cat((tensor[:-2], tensor[-1:]))
             
-        #print(masked_mean(kl, action_mask, dim=-1).shape)
+        # print(masked_mean(kl, action_mask, dim=-1).shape)
         info = {
             "kl": masked_mean(kl, action_mask, dim=-1),
             "reward": r,
@@ -2212,7 +2224,7 @@ class NaiveExperienceMakerPRM800K_BOX(ABC):
         if self.critic is not None:
             self.critic.train()
             
-        #print("pre_pre_action_mask", action_mask.size(1))
+        # print("pre_pre_action_mask", action_mask.size(1))
 
         return Experience(
             sequences,
@@ -2921,7 +2933,7 @@ class RemoteExperienceMakerBOX(NaiveExperienceMakerBOX):
             queries = processed_queries
             if self.reward_model is not None:
                 if len(complex_scoring_candidates):
-                    ## 需要批量推理scoring questions
+                    # 需要批量推理scoring questions
                     ray.logger.info("Processing complex scoring...")
                     complex_start = time.time()
                     judge_base_action_log_probs_ref_list_all = []
@@ -3178,7 +3190,7 @@ class RemoteExperienceMakerBOX(NaiveExperienceMakerBOX):
                         prompt_woCoT = prompt + "<think>\n\n</think>\n"
 
                     assert(args.n_samples_per_prompt % 4 == 0)
-                    all_prompts_list.append([prompt] * (args.n_samples_per_prompt*3//4) + [prompt_woCoT] *(args.n_samples_per_prompt//4))
+                    all_prompts_list.append([prompt] * (args.n_samples_per_prompt * 3 // 4) + [prompt_woCoT] * (args.n_samples_per_prompt // 4))
                     all_labels_list.append([label] * (args.n_samples_per_prompt))
                     all_tasks_list.append([task] * (args.n_samples_per_prompt))
                 
@@ -3488,7 +3500,7 @@ class RemoteExperienceMakerPRMBOX(NaiveExperienceMakerPRM800K_BOX):
         if value is not None:
             value = value.to(device)
             
-        scores = prm_rewards.softmax(dim=-1)[:,:,0]
+        scores = prm_rewards.softmax(dim=-1)[:, :, 0]
         step_scores = []
         step_tag = '<|reserved_special_token_0|>'
         step_tag_id = self.tokenizer.encode(f"{step_tag}")[-1]

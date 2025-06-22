@@ -3,7 +3,7 @@ from typing import Dict, Tuple, Optional
 import json
 
 
-def extract_solution(solution_str: str, template:str) -> Tuple[Optional[str], str]:
+def extract_solution(solution_str: str, template: str) -> Tuple[Optional[str], str]:
     """Extracts the final answer from the model's response string.
     
     Args:
@@ -173,7 +173,7 @@ def validate_response_structure(processed_str: str, template: str) -> bool:
         # Verify tag order
         if (positions['think_start'] > positions['think_end'] or
             positions['think_end'] > positions['answer_start'] or
-            positions['answer_start'] > positions['answer_end']):
+                positions['answer_start'] > positions['answer_end']):
             print("  [Error] Incorrect tag order: Expected <think>...</think><answer>...</answer>")
             validation_passed = False
         else:

@@ -66,9 +66,9 @@ def extract_system_user_content_from_model_input(model_input, template="qwen"):
                 if role == "system":
                     sys_content = shrink_system_prompt(content)
                     if len(sys_content):
-                        conversations.append({"role":str(role), "content":sys_content})
+                        conversations.append({"role": str(role), "content": sys_content})
                 else:
-                    conversations.append({"role":str(role), "content":str(content)})
+                    conversations.append({"role": str(role), "content": str(content)})
 
     elif template == "deepseek":
         assert("<｜begin▁of▁sentence｜>" in model_input)
@@ -78,7 +78,7 @@ def extract_system_user_content_from_model_input(model_input, template="qwen"):
         if len(system_prompt):
             sys_content = shrink_system_prompt(system_prompt)
             if len(sys_content):
-                conversations.append({"role":"system", "content":sys_content})
+                conversations.append({"role": "system", "content": sys_content})
 
         for text_split in text_splits:
             if len(text_split.strip()):
@@ -87,7 +87,7 @@ def extract_system_user_content_from_model_input(model_input, template="qwen"):
                 else:
                     text_split_item = text_split.strip()
                 if len(text_split_item):
-                    conversations.append({"role":"user", "content":text_split_item})
+                    conversations.append({"role": "user", "content": text_split_item})
     
     elif template == "llama3":
         assert("<|eot_id|>" in model_input)
@@ -102,9 +102,9 @@ def extract_system_user_content_from_model_input(model_input, template="qwen"):
                     if role == "system":
                         sys_content = shrink_system_prompt(content)
                         if len(sys_content):
-                            conversations.append({"role":str(role), "content":sys_content})
+                            conversations.append({"role": str(role), "content": sys_content})
                     else:
-                        conversations.append({"role":str(role), "content":str(content)})
+                        conversations.append({"role": str(role), "content": str(content)})
     
     elif template == "mistral":
         assert("[INST]" in model_input)
@@ -116,16 +116,16 @@ def extract_system_user_content_from_model_input(model_input, template="qwen"):
                 user_content = text_split[:text_split.find("[/INST]")]
                 system_content = shrink_system_prompt(user_content)
                 if system_content != user_content and len(system_content):
-                    conversations.append({"role":"system", "content":system_content})
+                    conversations.append({"role": "system", "content": system_content})
                 else:
                     # only contains user content
-                    conversations.append({"role":"user", "content":user_content})
+                    conversations.append({"role": "user", "content": user_content})
     
     elif template == "base":
         assert("User:" in model_input)
         if "System:" in model_input:
             system_content = model_input[model_input.find("System:")+len("System:"):model_input.find("User:")]
-            conversations.append({"role":"system", "content":shrink_system_prompt(system_content)})
+            conversations.append({"role": "system", "content": shrink_system_prompt(system_content)})
             model_input = model_input[model_input.find("User:"):]
 
         text_splits = model_input.split("User:")
@@ -133,7 +133,7 @@ def extract_system_user_content_from_model_input(model_input, template="qwen"):
         for text_split in text_splits:
             if "Assistant:" in text_split: 
                 user_content = text_split[:text_split.find("Assistant:")]
-                conversations.append({"role":"user", "content":user_content})
+                conversations.append({"role": "user", "content": user_content})
 
     else:
         raise NotImplementedError(f"Unsupported template: {template}")
@@ -158,30 +158,30 @@ def wrapping_prompts(model_input, answer_text, scoring_questions, template="qwen
         wrapping_content_list.append([
             {"role": "system", "content": "You are a helpful assistant."},
             {
-                "role":"user",
-                "content":wrapping_content,
+                "role": "user",
+                "content": wrapping_content,
             },
         ])
         wrapping_pairs_list.append([
             {"role": "system", "content": "You are a helpful assistant."},
             {
-                "role":"user",
-                "content":wrapping_content,
+                "role": "user",
+                "content": wrapping_content,
             },
             {
-                "role":"assistant",
-                "content":"YES(是)"
+                "role": "assistant",
+                "content": "YES(是)"
             }]
         )
         wrapping_pairs_list.append([
             {"role": "system", "content": "You are a helpful assistant."},
             {
-                "role":"user",
-                "content":wrapping_content,
+                "role": "user",
+                "content": wrapping_content,
             },
             {
-                "role":"assistant",
-                "content":"NO(否)"
+                "role": "assistant",
+                "content": "NO(否)"
             }]
         )
     assert(2*len(wrapping_content_list) == len(wrapping_pairs_list))
@@ -379,7 +379,7 @@ def compute_judgement_score_postprocess(prompts_scoring_inputs, indices, wrappin
         
         else:
             if sum(scoring_results) == 0:
-                ## 如果is_response_nonsense放在这里直接惩罚可能过于严厉
+                # 如果is_response_nonsense放在这里直接惩罚可能过于严厉
                 answer_score = -abs(answer_reward)
                 # print("  Content validation: FULL MisAlignment")
             else:

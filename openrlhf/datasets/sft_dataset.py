@@ -127,7 +127,7 @@ class SFTDataset(Dataset):
                         return_tensors="pt",
                         add_special_tokens=False,
                     )["attention_mask"].int().sum().item() - 1
-                    response_ranges.append((start_idx, end_idx)) # left close right open
+                    response_ranges.append((start_idx, end_idx))   # left close right open
 
         prompt, response = preprocess_data(
             data,
@@ -222,7 +222,7 @@ class SFTDataset(Dataset):
             if self.multiturn:
                 if len(infos["response_ranges"]) >= 1:
                     for i in range(len(info["response_ranges"])):
-                        info["response_ranges"][i][0] += infos["response_ranges"][-1][-1][1] # end_index of the last response of the last item
+                        info["response_ranges"][i][0] += infos["response_ranges"][-1][-1][1]   # end_index of the last response of the last item
                         info["response_ranges"][i][1] += infos["response_ranges"][-1][-1][1]
                 infos["response_ranges"].append(info["response_ranges"])
             index += 1
@@ -232,7 +232,8 @@ class SFTDataset(Dataset):
 
         if (
             self.multiple_of > 1 and packed_input_ids.numel() % self.multiple_of != 0
-        ):  # not divisible by multiple_of; here we align for grouping
+        ):
+            # not divisible by multiple_of; here we align for grouping
             padding_len = self.multiple_of - (packed_input_ids.numel() % self.multiple_of)
             packed_input_ids = F.pad(packed_input_ids, (0, padding_len), value=self.tokenizer.pad_token_id)
             packed_attention_masks = F.pad(packed_attention_masks, (0, padding_len), value=0)

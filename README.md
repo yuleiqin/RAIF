@@ -6,7 +6,7 @@
 <a href="https://github.com/yuleiqin/RAIF/pulls"><img src="https://img.shields.io/github/issues-pr/yuleiqin/RAIF" alt="Pull Requests Badge"/></a>
 <a href="https://github.com/yuleiqin/RAIF/issues"><img src="https://img.shields.io/github/issues/yuleiqin/RAIF" alt="Issues Badge"/></a>
 <a href="https://github.com/yuleiqin/RAIF/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/yuleiqin/RAIF?color=2b9348"></a>
-<a href="https://github.com/yuleiqin/RAIF/blob/master/LICENSE"><img src="https://img.shields.io/github/license/yuleiqin/RAIF?color=2b9348" alt="License Badge"/></a>
+<a href="https://github.com/yuleiqin/RAIF/blob/master/LICENSE_RAIF"><img src="https://img.shields.io/github/license/yuleiqin/RAIF?color=2b9348" alt="License Badge"/></a>
 </div>
 
 This is a repository of the official implementation of the paper "Incentivizing Reasoning for Advanced Instruction-Following of Large Language Models".
@@ -17,7 +17,7 @@ To this end, we propose a systematic method to boost LLMs in dealing with comple
 
 
 # News📰
-* **`May. 2025`:** 🔥🔥🔥**Our preprint paper is released [[arxiv version](https://arxiv.org/pdf/2506.01413)].**
+* **`Jun. 2025`:** 🔥🔥🔥**Our preprint paper is released [[arxiv version](https://arxiv.org/pdf/2506.01413)].**
 * **`May. 2025`:** 🔥🔥🔥**Codes and data are released. Model checkpoints are available at [🤗HuggingFace](https://huggingface.co/collections/yolay/raif-682b16e5c0c2fa9b73811369).**
 
 
@@ -182,3 +182,7 @@ In this project, we follow the SimpleRL and the OpenRLHF framework to prepare th
 
 We also would like to express gratitude to the research community that organize the existing benchmarks for validating the LLMs of solving complex instructions.
 
+
+# License🪪
+
+Please refer to `License_RAIF` for the license of this project.

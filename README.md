@@ -105,7 +105,7 @@ judge_model_url=${your judge model url}
 bash run_complex_bench_all.sh ${model_id} ${model_url} ${batch_size} ${cot_model_id} ${cot_model_url} ${judge_model_id} ${judge_model_url}
 ```
 
-One should first replace the tokenizer path in `COMPLEX_INSTRUCTIONS/run_local_model_openai.py` with the real path. The paths to Qwen, LLaMA, and Mistral tokenizers are needed to load the tokenizers for counting the input and output tokens.
+One should first replace the tokenizer path in `COMPLEX_INSTRUCTIONS/run_local_model_openai.py` with the real path. The paths to Qwen and Mistral tokenizers are needed to load the tokenizers for counting the input and output tokens.
 
 
 
@@ -128,21 +128,16 @@ One should first replace the tokenizer path in `COMPLEX_INSTRUCTIONS/run_local_m
 | DeepScaleR-1.5B        | I/O†     | 41.77  | 65.00 | 30.00    | 40.70        | 40.24    | 26.01        | 60.31      | 43.43        |
 | DeepScaleR-1.5B        | SFT      | 48.24  | 62.90 | 28.00    | 36.68        | 35.72    | 26.50        | 54.22      | 41.75 (-1.67%)  |
 | DeepScaleR-1.5B        | Ours     | 55.63  | 67.30 | 39.33    | 43.23        | 37.81    | 36.80        | 60.08      | 48.60 (+5.17%)  |
-| Qwen2.5-7B-Instruct    | I/O      | 72.82  | 76.50 | 64.33    | 74.47        | 59.29    | 75.03        | <u>85.60</u> | <u>72.58</u>   |
+| Qwen2.5-7B-Instruct    | I/O      | **72.82**  | 76.50 | 64.33    | 74.47        | 59.29    | 75.03        | <u>85.60</u> | <u>72.58</u>   |
 | Qwen2.5-7B-Instruct    | CoT      | 69.50  | 75.20 | 61.66    | 72.00        | 42.65    | 74.86        | 82.13      | 68.28 (-4.29%)  |
 | Qwen2.5-7B-Instruct    | SDC      | 60.44  | 72.60 | **65.66**| <u>76.53</u> | <u>60.07</u> | **76.09** | **86.88**  | 71.18 (-1.39%)  |
 | Qwen2.5-7B-Instruct    | SFT      | 72.45  | <u>77.50</u> | 63.33 | 74.23 | 58.76 | 75.92 | 84.31 | 72.36 (-0.21%) |
 | Qwen2.5-7B-Instruct    | Ours     | 70.06  | **79.20** | <u>65.00</u> | **77.40** | **64.45** | 75.32 | 82.67 | **73.44** (+0.85%) |
-| LLaMA3.1-8B-Instruct   | I/O      | <u>77.63</u> | 75.20 | 56.99 | 69.11 | 46.92 | 53.52 | 71.52 | 67.01 |
-| LLaMA3.1-8B-Instruct   | CoT      | 60.44  | 65.50 | 47.66    | 56.54        | 32.34    | 37.36        | 58.48      | 54.53 (-12.48%) |
-| LLaMA3.1-8B-Instruct   | SDC      | **80.22** | 71.00 | 58.33 | 68.73 | 38.36 | 48.92 | 72.89 | 65.24 (-1.77%) |
-| LLaMA3.1-8B-Instruct   | SFT      | 77.26  | 75.80 | 54.00    | 65.24        | 40.16    | 59.56        | 65.30      | 64.92 (-2.09%)  |
-| LLaMA3.1-8B-Instruct   | Ours     | 13.49  | 4.6   | 1.33     | 2.71         | 7.14     | 1.08         | 0.51       | 4.06 (-62.95%)  |
 | Ministral-8B-Instruct  | I/O      | 59.51  | 76.20 | 62.33    | 70.03        | 54.54    | 73.49        | 84.00      | 68.58        |
 | Ministral-8B-Instruct  | CoT      | 48.79  | 61.90 | 49.66    | 61.31        | 39.17    | 61.75        | 79.73      | 57.47 (-11.11%) |
 | Ministral-8B-Instruct  | SDC      | 58.59  | 63.60 | 56.99    | 68.32        | 48.06    | 69.37        | 84.08      | 64.14 (-4.43%)  |
 | Ministral-8B-Instruct  | SFT      | 68.57  | 66.30 | 48.66    | 67.20        | 37.26    | 54.37        | 76.62      | 59.85 (-8.72%)  |
-| Ministral-8B-Instruct  | Ours     | 72.64  | 72.6  | 59.33    | 70.45        | 54.35    | <u>76.08</u> | 75.33      | 68.68 (+0.10%)  |
+| Ministral-8B-Instruct  | Ours     | <u>72.64</u>  | 72.6  | 59.33    | 70.45        | 54.35    | <u>76.08</u> | 75.33      | 68.68 (+0.10%)  |
 | DeepSeek-Qwen7B        | I/O†     | 60.81  | 72.39 | 57.99    | 66.86        | 59.59    | 62.80        | 79.64      | 65.73        |
 | DeepSeek-Qwen7B        | SFT      | 67.09  | 69.10 | 58.66    | 58.42        | 55.60    | 65.96        | 79.15      | 64.85 (-0.88%)  |
 | DeepSeek-Qwen7B        | Ours     | 71.35  | 71.40 | 58.67    | 62.04        | 59.65    | 59.38        | 82.00      | 66.35 (+0.62%) |

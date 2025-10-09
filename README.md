@@ -13,12 +13,14 @@ This is a repository of the official implementation of the paper "Incentivizing 
 
 Existing large language models (LLMs) face challenges of following complex instructions, especially when multiple constraints are present and organized in paralleling, chaining, and branching structures. One intuitive solution, namely chain-of-thought (CoT), is expected to universally improve capabilities of LLMs. However, we find that the vanilla CoT exerts a negative impact on performance due to its superficial reasoning pattern of simply paraphrasing the instructions. It fails to peel back the compositions of constraints for identifying their relationship across hierarchies of types and dimensions.
 
-To this end, we propose a systematic method to boost LLMs in dealing with complex instructions via incentivizing reasoning for test-time compute scaling. First, we stem from the decomposition of complex instructions under existing taxonomies and propose a reproducible data acquisition method. Second, we exploit reinforcement learning (RL) with verifiable rule-centric reward signals to cultivate reasoning specifically for instruction following. We address the shallow, non-essential nature of reasoning under complex instructions via sample-wise contrast for superior CoT enforcement. We also exploit behavior cloning of experts to facilitate steady distribution shift from fast-thinking LLMs to skillful reasoners. Extensive evaluations on seven comprehensive benchmarks confirm the validity of the proposed method, where a 1.5B LLM achieves 11.74% gains with performance comparable to a 8B LLM.
+
+To this end, we propose RAIF, a systematic method to boost LLMs in dealing with complex instructions via incentivizing reasoning for test-time compute scaling. First, we stem from the decomposition of complex instructions under existing taxonomies and propose a reproducible data acquisition method. Second, we exploit reinforcement learning (RL) with verifiable rule-centric reward signals to cultivate reasoning specifically for instruction following. We address the shallow, non-essential nature of reasoning under complex instructions via sample-wise contrast for superior CoT enforcement. We also exploit behavior cloning of experts to facilitate steady distribution shift from fast-thinking LLMs to skillful reasoners. Extensive evaluations on seven comprehensive benchmarks confirm the validity of the proposed method, where a 1.5B LLM achieves 11.74\% gains with performance comparable to a 8B LLM. Evaluation on OOD constraints also confirms the generalizability of our RAIF.
 
 
 # News📰
-* **`Jun. 2025`:** 🔥🔥🔥**Our preprint paper is released [[arxiv version](https://arxiv.org/pdf/2506.01413)].**
-* **`May. 2025`:** 🔥🔥🔥**Codes and data are released. Model checkpoints are available at [🤗HuggingFace](https://huggingface.co/collections/yolay/raif-682b16e5c0c2fa9b73811369).**
+* **`Sep. 2025`:** Our RAIF has been accepted to **NeurIPS 2025**.
+* **`Jun. 2025`:** 🔥🔥🔥Our preprint paper is released **[[arxiv version](https://arxiv.org/pdf/2506.01413)]**.
+* **`May. 2025`:** 🔥🔥🔥Codes and data are released. Model checkpoints are available at **[🤗HuggingFace](https://huggingface.co/collections/yolay/raif-682b16e5c0c2fa9b73811369)**.
 
 
 # Overview✈️
